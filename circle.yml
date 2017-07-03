@@ -1,0 +1,47 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: msvrtan/square:0.2.1
+    working_directory: /var/www
+    parallel: 1
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: cache-{{ checksum "composer.lock" }}
+      - run:
+          name: Setup
+          command: |
+            set -exu
+            ./etc/circleci2/disable-xdebug.sh
+
+            #run composer
+            composer install --prefer-dist --no-interaction
+            
+      - run:
+          name: PhpUnit
+          command: ./vendor/bin/phpunit
+      - run:
+          name: PHP CS Fixer
+          command: ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - save_cache:
+          key: cache-{{ checksum "composer.lock" }}
+          paths:
+            - /var/www/vendor
+            - /var/www/bin
+
+      - store_artifacts:
+          path: build
+          destination: build
+      - store_artifacts:
+          path: /var/log/nginx
+          destination: build
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build

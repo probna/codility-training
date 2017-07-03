@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php": "^7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6",
+        "friendsofphp/php-cs-fixer": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "HcsOmot\\Codility\\Lessons\\": "src/"
+        }
+    }
+}
