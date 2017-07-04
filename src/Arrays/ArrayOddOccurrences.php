@@ -4,15 +4,15 @@ namespace HcsOmot\Codility\Lessons\Arrays;
 
 class ArrayOddOccurrences
 {
-    public function findOddElement(array $unpairedArray)
+    public function findUnpairedElementInArray(array $arrayWithAnUnpairedElement)
     {
         $elements = [];
 
-        foreach ($unpairedArray as $k => $v) {
-            if (isset($elements[$v])) {
-                ++$elements[$v];
+        foreach ($arrayWithAnUnpairedElement as $key => $element) {
+            if (isset($elements[$element])) {
+                ++$elements[$element];
             } else {
-                $elements[$v] = 1;
+                $elements[$element] = 1;
             }
         }
         foreach ($elements as $value => $count) {
