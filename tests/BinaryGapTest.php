@@ -10,23 +10,23 @@ use PHPUnit\Framework\TestCase;
 class BinaryGapTest extends TestCase
 {
     /**
-     * @dataProvider binaryGap
+     * @dataProvider provideSizeOfBinaryGapForIntegers
      */
-    public function testFindBinaryGapForInteger($integer, $binaryGap)
+    public function testFindBinaryGapForInteger($integer, $binaryGapSize)
     {
         $binaryGapCalculator = new BinaryGapCalculator();
 
-        $this->assertEquals($binaryGap, $binaryGapCalculator->findBinaryGapForInteger($integer));
+        $this->assertEquals($binaryGapSize, $binaryGapCalculator->findBinaryGapSizeForInteger($integer));
     }
 
-    public function binaryGap(): array
+    public function provideSizeOfBinaryGapForIntegers(): array
     {
         return [
-            [9, 2],
-            [529, 4],
-            [20, 1],
-            [15, 0],
-            [1041, 5],
+            [9, 2], //1001
+            [529, 4], //1000010001
+            [20, 1], //10100
+            [15, 0], //1111
+            [1041, 5], //10000010001
         ];
     }
 }

@@ -9,16 +9,13 @@ class BinaryGapCalculator
      *
      * @return int
      */
-    public function findBinaryGapForInteger(int $integer): int
+    public function findBinaryGapSizeForInteger(int $integer): int
     {
         $binary = decbin($integer);
 
-        $binlen  = strlen($binary);
         $lastOne = strrpos($binary, '1');
 
-        if ($lastOne != $binlen - 1) {
-            $binary = substr($binary, 0, $lastOne + 1);
-        }
+        $binary = substr($binary, 0, $lastOne + 1);
 
         $zeroes = explode('1', $binary);
 
