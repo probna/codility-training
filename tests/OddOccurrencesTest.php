@@ -10,17 +10,22 @@ use PHPUnit\Framework\TestCase;
 class OddOccurrencesTest extends TestCase
 {
     /**
-     * @dataProvider provideArrayOfUnpairedElements
+     * @dataProvider provideArrayWithAnUnpairedElement
      */
-    public function testFindUnpairedElementInArray(array $unpairedArray, int $oddElement)
+    public function testFindUnpairedElementInArray(array $arrayWithAnUnpairedElement, int $unpairedElement)
     {
         $unpairedElementFinder = new ArrayOddOccurrences();
 
-        $this->assertEquals($oddElement, $unpairedElementFinder->findOddElement($unpairedArray));
+        $this->assertEquals($unpairedElement, $unpairedElementFinder->findUnpairedElementInArray($arrayWithAnUnpairedElement));
     }
 
-    public function provideArrayOfUnpairedElements(): array
+    public function provideArrayWithAnUnpairedElement(): array
     {
-        return [[[9, 3, 9, 3, 9, 7, 9], 7]];
+        return [
+            [[9, 3, 9, 3, 9, 7, 9], 7],
+            [[1, 1, 2, 2, 1, 3, 1], 3],
+            [[8, 8, 8, 8, 8, 8, 8, 8, 8], 8],
+            [[1, 2, 1, 2, 1, 2, 1, 2, 1], 1],
+            ];
     }
 }
