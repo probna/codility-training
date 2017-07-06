@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class PermmissingElementTest extends TestCase
 {
     /**
-     * @dataProvider provideAnArrayWithMissingElement10
+     * @dataProvider provideAnArrayWithMissingLastElementOfSequence
      * @dataProvider provideAnArrayWithMissingFirstElementOfSequence
      * @dataProvider provideAnArrayWithMissingRandomElementOfARandomizedSequence
      */
@@ -16,10 +16,13 @@ class PermmissingElementTest extends TestCase
     {
         $permmissingElement = new PermmissingElement();
 
-        $this->assertEquals($missingElement, $permmissingElement->findMissingElementInArray($arrayWithMissingElement));
+        $this->assertEquals($missingElement, $permmissingElement->findMissingElementInArrayUsingArrayDiff($arrayWithMissingElement));
+        $this->assertEquals($missingElement, $permmissingElement->findMissingElementInArrayUsingArrayFilter($arrayWithMissingElement));
+        $this->assertEquals($missingElement, $permmissingElement->findMissingElementInArrayUsingLoops($arrayWithMissingElement));
+        $this->assertEquals($missingElement, $permmissingElement->findMissingElementInArrayUsingArraySorting($arrayWithMissingElement));
     }
 
-    public function provideAnArrayWithMissingElement10(): array
+    public function provideAnArrayWithMissingLastElementOfSequence(): array
     {
         return [
             [[1, 2, 3, 4, 5, 6, 7, 8, 9], 10],
