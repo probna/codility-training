@@ -12,21 +12,16 @@ class TapeEquilibrium
 
         $rightSum = array_sum($array);
 
-        $minimalDifference = 0;
+        $sumHolder[1]['leftSum']      = $array[0];
+        $minimalDifference            = abs($sumHolder[1]['leftSum'] - $rightSum);
+        for ($i = 1; $i < $arrayLength - 1; ++$i) {
+            $sumHolder[$i + 1]['leftSum'] = $sumHolder[$i]['leftSum'] + $array[$i];
+            $rightSum -= $array[$i - 1];
 
-        for ($i = 0; $i < $arrayLength - 1; ++$i) {
-            if ($i === 0) {
-                $sumHolder[$i + 1]['leftSum'] = $array[$i];
-                $minimalDifference            = abs($sumHolder[$i + 1]['leftSum'] - $rightSum);
-            } else {
-                $sumHolder[$i + 1]['leftSum'] = $sumHolder[$i]['leftSum'] + $array[$i];
-                $rightSum -= $array[$i - 1];
+            $diff = abs($sumHolder[$i]['leftSum'] - $rightSum);
 
-                $diff = abs($sumHolder[$i]['leftSum'] - $rightSum);
-
-                if ($diff < $minimalDifference) {
-                    $minimalDifference = $diff;
-                }
+            if ($diff < $minimalDifference) {
+                $minimalDifference = $diff;
             }
         }
 
