@@ -14,7 +14,7 @@ class TapeEquilibrium
 
         $minimalDifference = 0;
 
-        for ($i = 0; $i < $arrayLength - 1; ++$i) {
+        for ($i = 0; $i < $arrayLength; ++$i) {
             if ($i === 0) {
                 $sumHolder[$i + 1]['leftSum'] = $array[$i];
                 $minimalDifference            = abs($sumHolder[$i + 1]['leftSum'] - $rightSum);
@@ -30,6 +30,8 @@ class TapeEquilibrium
             }
         }
 
+//        var_dump($sumHolder);
+//        var_dump($rightSum);
         return $minimalDifference;
     }
 }
