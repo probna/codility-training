@@ -8,21 +8,19 @@ class TapeEquilibrium
     {
         $arrayLength = count($array);
 
-//        $sumHolder = [];
+        $leftSum      = 0;
+        $rightSum     = array_sum($array);
 
-        $rightSum = array_sum($array);
-
-        $leftSum      = $array[0];
         $minimalDifference            = abs($leftSum - $rightSum);
-        for ($i = 1; $i < $arrayLength - 1; ++$i) {
+        for ($i = 1; $i < $arrayLength; ++$i) {
             $rightSum -= $array[$i - 1];
+            $leftSum = $leftSum + $array[$i - 1];
 
             $diff = abs($leftSum - $rightSum);
 
             if ($diff < $minimalDifference) {
                 $minimalDifference = $diff;
             }
-            $leftSum = $leftSum + $array[$i];
         }
 
         return $minimalDifference;
