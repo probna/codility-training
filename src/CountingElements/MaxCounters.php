@@ -6,19 +6,32 @@ class MaxCounters
 {
     public function performAListOfOperationsOnANumberOfCounters(int $numberOfCounters, array $listOfOperations)
     {
-        $currentMaxCounter = 0;
+        $tmpCounters = [];
 
-        $counterList = array_fill(0, $numberOfCounters, 0);
+        $allCounters = 0;
+        $maxCounter  = 0;
 
         foreach ($listOfOperations as $operation) {
             if ($operation <= $numberOfCounters) {
-                ++$counterList[$operation - 1];
-                $currentMaxCounter = max($currentMaxCounter, $counterList[$operation - 1]);
-            } elseif ($operation === $numberOfCounters + 1) {
-                $counterList = array_fill(0, $numberOfCounters, $currentMaxCounter);
+                if (isset($tmpCounters[$operation - 1])) {
+                    ++$tmpCounters[$operation - 1];
+                } else {
+                    $tmpCounters[$operation - 1] = $allCounters + 1;
+                }
+
+                $maxCounter = max($maxCounter, $tmpCounters[$operation - 1]);
+            } else {
+                $allCounters = $maxCounter;
+                $tmpCounters = [];
             }
         }
 
-        return $counterList;
+        $result = array_fill(0, $numberOfCounters, $allCounters);
+
+        foreach ($tmpCounters as $k => $v) {
+            $result[$k] = $v;
+        }
+
+        return $result;
     }
 }
