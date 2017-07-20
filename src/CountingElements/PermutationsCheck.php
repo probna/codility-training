@@ -4,31 +4,23 @@ namespace HcsOmot\Codility\Lessons\CountingElements;
 
 class PermutationsCheck
 {
-    public function isArrayAPermutation(array $inputArray)
+    public function isArrayAPermutation(array $inputArray): int
     {
-        $values = [];
-
         if (empty($inputArray)) {
             return 0;
         }
 
-        $maxValue = max($inputArray);
+        $maxAllowed = count($inputArray);
 
-        if (count($inputArray) != $maxValue) {
-            return 0;
-        }
-
+        $tempArr = [];
         foreach ($inputArray as $value) {
-            $values[$value] = $value;
-        }
-
-        for ($i = 1; $i <= count($inputArray) - 1; ++$i) {
-            if (!array_key_exists($i, $values)) {
+            if ($value > $maxAllowed) {
                 return 0;
             }
-//            if ($values[$i]+1 != $values[$i+1]){
-//                return 0;
-//            }
+            if (array_key_exists($value, $tempArr)) {
+                return 0;
+            }
+            $tempArr[$value]=true;
         }
 
         return 1;
