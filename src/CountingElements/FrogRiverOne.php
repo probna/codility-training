@@ -8,20 +8,19 @@ class FrogRiverOne
     {
         $jumpLocations = [];
 
+        $totalSumOfPositions = $jumpsNeeded * ($jumpsNeeded + 1) / 2;
+
+        $currentlyCoveredPositions = 0;
         foreach ($timeJumpLocations as $time => $jumpLocation) {
             if (!isset($jumpLocations[$jumpLocation])) {
                 $jumpLocations[$jumpLocation] = $time;
-            } else {
-                $jumpLocations[$jumpLocation] = min($jumpLocations[$jumpLocation], $time);
+                $currentlyCoveredPositions += $jumpLocation;
+            }
+            if ($currentlyCoveredPositions === $totalSumOfPositions) {
+                return $time;
             }
         }
 
-        $result = max($jumpLocations);
-
-        if (count($jumpLocations) != $jumpsNeeded) {
-            return -1;
-        }
-
-        return $result;
+        return -1;
     }
 }
